@@ -4,7 +4,7 @@ pipeline {
         maven 'M2_HOME'
     }
     environment {
-        registry = 'geoImage'
+        registry = 'geoimage'
         registryCredential = 'jenkins-ecr'
         dockerimage = ''
     }
