@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Checkout'){
             steps{
-                git branch: 'main', url: 'https://github.com/guillou73/geolocation.git'
+                git branch: 'main', url: 'https://github.com/Freensh/geolocation1.git'
             }
         }
         stage('Code Build') {
@@ -24,21 +24,6 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        stage('Build Image') {
-            steps {
-                script{
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                } 
-            }
-        }
-        stage('Deploy image') {
-            steps{
-                script{ 
-                    docker.withRegistry("https://"+registry,"ecr:us-east-1:"+registryCredential) {
-                        dockerImage.push()
-                    }
-                }
-            }
         }  
     }
 }
