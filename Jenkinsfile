@@ -34,7 +34,7 @@ pipeline {
         stage('Push Image') {
             steps{
                 script{
-                    docker.withDockerRegistry ([ credentialsId: "docker-login", url: "" ]){
+                    withDockerRegistry ([ credentialsId: "docker-login", url: "" ]){
                         dockerImage.push()
                     }
                     
