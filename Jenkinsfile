@@ -4,7 +4,7 @@ pipeline {
         maven 'M2_HOME'
     }
     environment {
-        registry = '464787010492.dkr.ecr.us-east-1.amazonaws.com/jenkins-repo'
+        registry = 'geoImage'
         registryCredential = 'jenkins-ecr'
         dockerimage = ''
     }
@@ -29,6 +29,13 @@ pipeline {
                 script{
                     dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 } 
+            }
+        }
+        stage('Push Image') {
+            steps{
+                docker.withDockerRegistry ([ credentialsId: "docker-login", url: "" ]){
+                    dockerImage.push()
+                }
             }
         }
     }
